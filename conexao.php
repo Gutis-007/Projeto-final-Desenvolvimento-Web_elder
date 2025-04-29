@@ -28,7 +28,6 @@ if ($result->num_rows == 0) {
     
     // Criar o banco de dados
     if ($conn->query("CREATE DATABASE IF NOT EXISTS $database") === TRUE) {
-        echo "Banco de dados criado com sucesso.\n";
     } else {
         die("Erro ao criar banco de dados: " . $conn->error . "\n");
     }
@@ -49,8 +48,6 @@ if ($result->num_rows == 0) {
         $query = trim($query);
         if (!empty($query)) {
             if ($conn->query($query) === FALSE) {
-                echo "Erro ao executar query: " . $conn->error . "\n";
-                echo "Query: " . $query . "\n";
                 $success = false;
                 break;
             }
@@ -58,12 +55,12 @@ if ($result->num_rows == 0) {
     }
     
     if ($success) {
-        echo "Importação concluída com sucesso!\n";
+        echo "Banco de dados criado e importado com sucesso.\n";
     } else {
-        echo "Ocorreram erros durante a importação.\n";
+        echo "Erro ao importar banco de dados.\n";
     }
 } else {
-    echo "Banco de dados '$database' já existe.\n";
+    echo "Banco de dados já existe.\n";
 }
 
 // Verificar se todas as tabelas necessárias existem
@@ -94,7 +91,6 @@ if (!empty($missing_tables)) {
         $query = trim($query);
         if (!empty($query)) {
             if ($conn->query($query) === FALSE) {
-                echo "Erro ao executar query: " . $conn->error . "\n";
                 $success = false;
                 break;
             }
