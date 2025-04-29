@@ -45,7 +45,7 @@ $resultado = mysqli_query($conn, $sql);
 <head>
     <meta charset="UTF-8">
     <title>Gerenciar Turmas</title>
-    <link rel="stylesheet" href="style/gerTurma.css">
+    <link rel="stylesheet" href="Style/gerTurma.css">
 </head>
 <body>
 <div class="container">
