@@ -15,7 +15,7 @@ $conn = new mysqli($hostname, $username, $password, $database, $port);
 
 // Verificar conexão
 if ($conn->connect_error) {
-    die("Falha na conexão: " . $conn->connect_error . "\n");
+    die("Falha na conexão: " . $conn->connect_error);
 }
 
 echo "Conexão ao servidor MySQL estabelecida.\n";
@@ -111,5 +111,4 @@ if (!empty($missing_tables)) {
 }
 
 echo "Configuração do banco de dados concluída.\n";
-$conn->close();
 ?>

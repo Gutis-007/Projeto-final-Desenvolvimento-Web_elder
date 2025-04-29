@@ -3,9 +3,12 @@ include_once("conexao.php");
 
 $sql = "SELECT nome, descricao, imagem FROM disciplinas";
 $result = $conn->query($sql);
+if (!$result) {
+    die("Erro na consulta: " . $conn->error);
+}
 // Separando para poder usar duas vezes o mesmo resultado:
 $disciplinas = [];
-if ($result->num_rows > 0) {
+if ($result && $result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
         $disciplinas[] = $row;
     }
@@ -112,11 +115,6 @@ if ($result->num_rows > 0) {
     </div>
 </section>
 
-<?php
-// Fechar conexão
-$conn->close();
-?>
-
     <footer>
             <section class="line-footer">
                 <div class="box-line-footer">
@@ -161,3 +159,8 @@ $conn->close();
     <script  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 </body>
 </html>
+
+<?php
+// Fechar conexão
+$conn->close();
+?>
