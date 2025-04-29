@@ -1,3 +1,14 @@
+<?php
+include("conexao.php");
+session_start();
+
+if (!isset($_SESSION['prof_id'])) {
+    header("Location: login.html");
+    exit();
+} else {
+    $profId = $_SESSION['prof_id'];
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,17 +25,6 @@
     <br> <br> 
     <div class="containerTable">
     <?php
-    include("conexao.php");
-    session_start();
-    
-    if (!isset($_SESSION['prof_id'])) {
-        header("Location: login.html");
-        exit();
-    } else {
-        $profId = $_SESSION['prof_id'];
-    }
-    // Verifica se o usuário é um professor
-
     $sql = "SELECT 
     alunos.id AS aluno_id,
     disciplinas.id AS disciplina_id,
@@ -48,7 +48,6 @@ LEFT JOIN notas
 WHERE professores.fk_user = $profId
 ORDER BY turma,  aluno, disciplina;
 ";
-
 
     $consulta = mysqli_query($conn, $sql); 
 
