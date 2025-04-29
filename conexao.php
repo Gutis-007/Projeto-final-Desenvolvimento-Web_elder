@@ -11,7 +11,7 @@ $database = getenv('DB_NAME') ?: 'sistema_esc';
 echo "Iniciando configuração do banco de dados...\n";
 
 // Conectar ao servidor MySQL sem especificar banco de dados
-$conn = new mysqli($hostname, $username, $password, $database, $port);
+$connection = new mysqli($hostname, $username, $password, $database, $port);
 
 // Verificar conexão
 if ($conn->connect_error) {
