@@ -64,14 +64,14 @@ ORDER BY turma,  aluno, disciplina;
                   </tr>";
             
                   while ($row = mysqli_fetch_assoc($consulta)) {
-                    $matricula = htmlspecialchars($row['matricula']);
-                    $aluno = htmlspecialchars($row['aluno']);
-                    $disciplina = htmlspecialchars($row['disciplina']);
-                    $nota = is_null($row['nota']) ? 0 : htmlspecialchars($row['nota']);
-                    $data = is_null($row['dataL']) ? '-' : htmlspecialchars($row['dataL']);
-                    $nota_id = htmlspecialchars($row['nota_id']);
-                    $aluno_id = htmlspecialchars($row['aluno_id']);
-                    $disciplina_id = htmlspecialchars($row['disciplina_id']);
+    $matricula = !is_null($row['matricula']) ? htmlspecialchars($row['matricula']) : '';
+    $aluno = !is_null($row['aluno']) ? htmlspecialchars($row['aluno']) : '';
+    $disciplina = !is_null($row['disciplina']) ? htmlspecialchars($row['disciplina']) : '';
+    $nota = is_null($row['nota']) ? '0' : htmlspecialchars($row['nota']);
+    $data = is_null($row['dataL']) ? '-' : htmlspecialchars($row['dataL']);
+    $nota_id = !is_null($row['nota_id']) ? htmlspecialchars($row['nota_id']) : '';
+    $aluno_id = !is_null($row['aluno_id']) ? htmlspecialchars($row['aluno_id']) : '';
+    $disciplina_id = !is_null($row['disciplina_id']) ? htmlspecialchars($row['disciplina_id']) : '';
                 
                     echo "<tr>";
                     echo "<td>$matricula</td>";
