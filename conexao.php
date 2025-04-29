@@ -53,14 +53,6 @@ if ($result->num_rows == 0) {
             }
         }
     }
-    
-    if ($success) {
-        echo "Banco de dados criado e importado com sucesso.\n";
-    } else {
-        echo "Erro ao importar banco de dados.\n";
-    }
-} else {
-    echo "Banco de dados já existe.\n";
 }
 
 // Verificar se todas as tabelas necessárias existem
@@ -96,14 +88,6 @@ if (!empty($missing_tables)) {
             }
         }
     }
-    
-    if ($success) {
-        echo "Importação concluída com sucesso!\n";
-    } else {
-        echo "Ocorreram erros durante a importação.\n";
-    }
-} else {
-    echo "Todas as tabelas necessárias já existem.\n";
 }
 
 echo "Configuração do banco de dados concluída.\n";
