@@ -1,9 +1,7 @@
--- Criação do banco de dados
 drop DATABASE IF EXISTS sistema_esc;
 CREATE DATABASE IF NOT EXISTS sistema_esc;
 USE sistema_esc;
 
--- Tabela de usuários
 DROP TABLE IF EXISTS usuarios;
 CREATE TABLE usuarios (
   id INT NOT NULL AUTO_INCREMENT,
@@ -16,7 +14,6 @@ CREATE TABLE usuarios (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Tabela de disciplinas
 DROP TABLE IF EXISTS disciplinas;
 CREATE TABLE disciplinas (
   id INT NOT NULL AUTO_INCREMENT,
@@ -35,7 +32,6 @@ CREATE TABLE administradores (
   FOREIGN KEY (fk_user) REFERENCES usuarios (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Tabela de professores
 DROP TABLE IF EXISTS professores;
 CREATE TABLE professores (
   id INT NOT NULL AUTO_INCREMENT,
@@ -45,7 +41,6 @@ CREATE TABLE professores (
   FOREIGN KEY (fk_user) REFERENCES usuarios (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Tabela de alunos
 DROP TABLE IF EXISTS alunos;
 CREATE TABLE alunos (
   id INT NOT NULL AUTO_INCREMENT,
@@ -56,7 +51,6 @@ CREATE TABLE alunos (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- Tabela de turmas
 DROP TABLE IF EXISTS turmas;
 CREATE TABLE turmas (
   id INT NOT NULL AUTO_INCREMENT,
@@ -75,7 +69,6 @@ CREATE TABLE prof_disc_turma (
   UNIQUE KEY (fk_prof, fk_disc, fk_turma)
 );
 
--- Tabela de relação alunos-turmas
 DROP TABLE IF EXISTS turma_alunos;
 CREATE TABLE turma_alunos (
   id INT NOT NULL AUTO_INCREMENT,
@@ -87,7 +80,6 @@ CREATE TABLE turma_alunos (
   UNIQUE KEY (fk_turma, fk_aluno)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Tabela de notas
 DROP TABLE IF EXISTS notas;
 CREATE TABLE notas (
   id INT NOT NULL AUTO_INCREMENT,
@@ -103,7 +95,6 @@ CREATE TABLE notas (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
     
--- Inserção de dados na tabela usuarios
 LOCK TABLES usuarios WRITE;
 INSERT INTO usuarios VALUES 
 (1,'Helder','helder@gmail.com',20,'121.456.789-00','12345','Aluno'),
@@ -146,48 +137,44 @@ INSERT INTO disciplinas VALUES
 (9,'INGLES', 'Aprenda o idioma mais utilizado no mundo da tecnologia e amplie suas oportunidades.', 'img/ingles.jpg')
 ;
 UNLOCK TABLES;
--- Inserção de dados na tabela professores
 LOCK TABLES professores WRITE;
-INSERT INTO professores VALUES (1,7),(2,8),(3,25); -- 1 relaciona com Nicholas, 2 relaciona com Jhonta e 3 com James
+INSERT INTO professores VALUES (1,7),(2,8),(3,25); 
 UNLOCK TABLES;
 
 LOCK TABLES administradores WRITE;
-INSERT INTO administradores VALUES (1,23),(2,24); -- 1 relaciona com Fernando e 2 relaciona com Fernanda
+INSERT INTO administradores VALUES (1,23),(2,24); 
 UNLOCK TABLES;
 
--- Inserção de dados na tabela alunos
 LOCK TABLES alunos WRITE;
 INSERT INTO alunos VALUES 
-(1,202401,1),  -- Relaciona com usuário Helder (id 1)
-(2,202402,2), -- Relaciona com usuário Matheus (id 2)
-(3,202403,3), -- Relaciona com usuário Ari (id 3)
-(4,202404,4),  -- Relaciona com usuário Giovanna (id 4)
-(5,202405,5), -- Relaciona com usuário Gillis (id 5)
-(6,202406,6), -- Relaciona com usuário william (id 6)
-(7,202407,9), -- Relaciona com usuário lucas (id 9)
-(8,202408,10), -- Relaciona com usuário caio (id 10)
-(9,202409,11), -- Relaciona com usuário alex (id 11)
-(10, 202410, 12),  -- Relaciona com usuário Pedro (id 12)
-(11, 202411, 13),  -- Relaciona com usuário Gabriel (id 13
-(12, 202412, 14), -- Relaciona com usuário Rafael (id 14)
-(13, 202413, 15),  -- Relaciona com usuário Felipe (id 15)
-(14, 202414, 16),  -- Relaciona com usuário Gabriele (id 16)
-(15, 202415, 17),  -- Relaciona com usuário Marcos (id 17)
-(16, 202416, 18),  -- Relaciona com usuário Leonardo (id 18)
-(17, 202417, 19),  -- Relaciona com usuário Thiago (id 19)
-(18, 202418, 20),  -- Relaciona com usuário yasmim (id 20)
-(19, 202419, 21),  -- Relaciona com usuário Daniel (id 21)
-(20, 202420, 22); -- Relaciona com usuário Bruno (id 22)
+(1,202401,1),  
+(2,202402,2), 
+(3,202403,3),
+(4,202404,4),
+(5,202405,5),
+(6,202406,6),
+(7,202407,9),
+(8,202408,10),
+(9,202409,11),
+(10, 202410, 12),  
+(11, 202411, 13),  
+(12, 202412, 14), 
+(13, 202413, 15),  
+(14, 202414, 16),  
+(15, 202415, 17),  
+(16, 202416, 18),  
+(17, 202417, 19),  
+(18, 202418, 20),  
+(19, 202419, 21),  
+(20, 202420, 22); 
 UNLOCK TABLES;
 
--- Inserção de dados na tabela disciplinas
 use sistema_esc;
 SELECT tipo FROM usuarios WHERE id = 8;
 
--- Inserção de dados na tabela notas
 LOCK TABLES notas WRITE;
 INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES 
--- Aluno 1 (Helder)
+
 (8.5, '2024-03-05', 1, 1, 1),
 (7.0, '2024-03-12', 1, 1, 2),
 (9.0, '2024-03-20', 1, 1, 3),
@@ -197,7 +184,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.2, '2024-06-20', 1, 2, 7),
 (7.8, '2024-06-08', 1, 2, 8),
 
--- Aluno 2 (Matheus)
 (8.7, '2024-03-06', 2, 1, 1),
 (7.3, '2024-03-13', 2, 1, 2),
 (9.1, '2024-03-21', 2, 1, 3),
@@ -207,7 +193,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (7.9, '2024-06-21', 2, 2, 7),
 (7.4, '2024-06-09', 2, 2, 8),
 
--- Aluno 3 (Ari)
 (8.4, '2024-03-07', 3, 1, 1), 
 (7.6, '2024-03-14', 3, 1, 2),
 (9.2, '2024-03-22', 3, 1, 3),
@@ -217,7 +202,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.0, '2024-06-22', 3, 2, 7), 
 (7.6, '2024-06-10', 3, 2, 8),
 
--- Aluno 4 (Giovanna)
 (9.0, '2024-03-08', 4, 1, 1),
 (7.9, '2024-03-15', 4, 1, 2), 
 (9.3, '2024-03-23', 4, 1, 3), 
@@ -227,7 +211,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.1, '2024-06-23', 4, 2, 7), 
 (7.9, '2024-06-11', 4, 2, 8), 
 
--- Aluno 5 (Gillis)
 (8.6, '2024-03-09', 5, 1, 1), 
 (7.4, '2024-03-16', 5, 1, 2), 
 (9.4, '2024-03-24', 5, 1, 3),
@@ -237,7 +220,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.0, '2024-06-24', 5, 2, 7), 
 (7.5, '2024-06-12', 5, 2, 8), 
 
--- Aluno 6 (William)
 (8.8, '2024-03-10', 6, 1, 1), 
 (7.1, '2024-03-17', 6, 1, 2), 
 (9.5, '2024-03-25', 6, 1, 3), 
@@ -247,7 +229,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.1, '2024-06-25', 6, 2, 7), 
 (7.7, '2024-06-13', 6, 2, 8), 
 
--- Aluno 7 (Lucas)
 (7.6, '2024-03-11', 7, 1, 1), 
 (6.0, '2024-03-18', 7, 1, 2), 
 (8.3, '2024-03-26', 7, 1, 3), 
@@ -257,7 +238,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (7.3, '2024-06-26', 7, 2, 7), 
 (6.0, '2024-06-14', 7, 2, 8), 
 
--- Aluno 8 (Caio)
 (10.0, '2024-03-12', 8, 1, 1), 
 (0.0, '2024-03-19', 8, 1, 2), 
 (0.0, '2024-03-27', 8, 1, 3), 
@@ -267,7 +247,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (0.0, '2024-06-27', 8, 2, 7), 
 (7.0, '2024-06-15', 8, 2, 8), 
 
--- Aluno 9 (Alex)
 (10.0, '2024-03-13', 9, 1, 1), 
 (0.0, '2024-03-20', 9, 1, 2), 
 (10.0, '2024-03-28', 9, 1, 3), 
@@ -277,7 +256,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (0.0, '2024-06-28', 9, 2, 7), 
 (10.0, '2024-06-16', 9, 2, 8),
 
--- Aluno 10 (Pedro)
 (8.5, '2024-03-14', 10, 1, 1), 
 (7.0, '2024-03-21', 10, 1, 2), 
 (9.0, '2024-03-29', 10, 1, 3), 
@@ -287,7 +265,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.0, '2024-06-29', 10, 2, 7), 
 (7.0, '2024-06-17', 10, 2, 8),
 
--- Aluno 11 (Gabriel)
 (8.2, '2024-03-15', 11, 1, 1),
 (7.3, '2024-03-22', 11, 1, 2),
 (8.9, '2024-03-30', 11, 1, 3),
@@ -297,7 +274,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (7.8, '2024-06-30', 11, 2, 7), 
 (7.2, '2024-06-18', 11, 2, 8),
 
--- Aluno 12 (Rafael)
 (9.1, '2024-03-16', 12, 1, 1),
 (8.1, '2024-03-23', 12, 1, 2),
 (9.3, '2024-03-31', 12, 1, 3), 
@@ -307,7 +283,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.2, '2024-07-01', 12, 2, 7),
 (7.7, '2024-06-19', 12, 2, 8),
 
--- Aluno 13 (Felipe)
 (7.8, '2024-03-17', 13, 1, 1),
 (6.9, '2024-03-24', 13, 1, 2),
 (8.5, '2024-04-01', 13, 1, 3), 
@@ -317,7 +292,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (7.6, '2024-07-02', 13, 2, 7),
 (7.0, '2024-06-20', 13, 2, 8),
 
--- Aluno 14 (gabriele)
 (8.9, '2024-03-18', 14, 1, 1),
 (8.0, '2024-03-25', 14, 1, 2),
 (9.2, '2024-04-02', 14, 1, 3),
@@ -327,7 +301,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.3, '2024-07-03', 14, 2, 7), 
 (7.8, '2024-06-21', 14, 2, 8),
 
--- Aluno 15 (Marcos)
 (7.5, '2024-03-19', 15, 1, 1), 
 (6.7, '2024-03-26', 15, 1, 2), 
 (8.3, '2024-04-03', 15, 1, 3),
@@ -337,7 +310,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (7.5, '2024-07-04', 15, 2, 7), 
 (6.9, '2024-06-22', 15, 2, 8),
 
--- Aluno 16 (Leonardo)
 
 (8.7, '2024-03-20', 16, 1, 1),
 (7.5, '2024-03-27', 16, 1, 2), 
@@ -348,7 +320,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.1, '2024-07-05', 16, 2, 7), 
 (7.6, '2024-06-23', 16, 2, 8), 
 
--- Aluno 17 (Thiago)
 (9.2, '2024-03-21', 17, 1, 1),
 (8.3, '2024-03-28', 17, 1, 2),
 (9.4, '2024-04-05', 17, 1, 3),
@@ -358,7 +329,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.5, '2024-07-06', 17, 2, 7),
 (8.0, '2024-06-24', 17, 2, 8), 
 
--- Aluno 18 (Yasmim)
 (7.9, '2024-03-22', 18, 1, 1),
 (7.1, '2024-03-29', 18, 1, 2),
 (8.7, '2024-04-06', 18, 1, 3), 
@@ -368,7 +338,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (7.9, '2024-07-07', 18, 2, 7), 
 (7.3, '2024-06-25', 18, 2, 8),
 
--- Aluno 19 (Daniel)
 (8.3, '2024-03-23', 19, 1, 1), 
 (7.6, '2024-03-30', 19, 1, 2), 
 (8.9, '2024-04-07', 19, 1, 3), 
@@ -378,7 +347,6 @@ INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) VALUES
 (8.2, '2024-07-08', 19, 2, 7), 
 (7.7, '2024-06-26', 19, 2, 8),
 
--- Aluno 20 (Bruno)
 (8.0, '2024-03-24', 20, 1, 1),
 (7.3, '2024-03-31', 20, 1, 2),
 (8.8, '2024-04-08', 20, 1, 3),
@@ -399,7 +367,6 @@ INSERT INTO turmas (id, nome) VALUES
 select * from turmas;
 
 
--- Disciplinas 1 a 4 para professor 1
 INSERT INTO prof_disc_turma (fk_prof, fk_disc, fk_turma) VALUES
 
 (1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 1, 4),
@@ -407,48 +374,20 @@ INSERT INTO prof_disc_turma (fk_prof, fk_disc, fk_turma) VALUES
 (1, 3, 1), (1, 3, 2), (1, 3, 3), (1, 3, 4),
 (1, 4, 1), (1, 4, 2), (1, 4, 3), (1, 4, 4),
 
--- Disciplinas 5 a 8 para professor 2 e 9 para prof 3
 (2, 5, 1), (2, 5, 2), (2, 5, 3), (2, 5, 4),
 (2, 6, 1), (2, 6, 2), (2, 6, 3), (2, 6, 4),
 (2, 7, 1), (2, 7, 2), (2, 7, 3), (2, 7, 4),
 (2, 8, 1), (2, 8, 2), (2, 8, 3), (2, 8, 4),
-
 (3, 9, 1), (3, 9, 2), (3, 9, 3), (3, 9, 4);
 
 
-/* -- Inserção de alunos nas turmas dividindo varios alunos em varias turmas
 INSERT INTO turma_alunos (fk_turma, fk_aluno) VALUES 
--- Alunos nas turmas do Professor Nicholas (Turmas A e B)
--- Turma A (10 alunos)
-(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), 
-(1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
 
--- Turma B (10 alunos)
-(2, 11), (2, 12), (2, 13), (2, 14), (2, 15),
-(2, 16), (2, 17), (2, 18), (2, 19), (2, 20),
-
--- Alunos nas turmas do Professor Jhonta (Turmas C e D)
--- Turma C (10 alunos - mesmos alunos da Turma A)
-(3, 1), (3, 2), (3, 3), (3, 4), (3, 5),
-(3, 6), (3, 7), (3, 8), (3, 9), (3, 10),
-
--- Turma D (10 alunos - mesmos alunos da Turma B)
-(4, 11), (4, 12), (4, 13), (4, 14), (4, 15),
-(4, 16), (4, 17), (4, 18), (4, 19), (4, 20);
-*/
-
--- Inserção de alunos nas turmas dividindo alunos em uma turma somente
-INSERT INTO turma_alunos (fk_turma, fk_aluno) VALUES 
--- Alunos nas turmas do Professor Nicholas (Turmas A e B)
--- Turma A (5 alunos)
 (1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
 
--- Turma B (5 alunos)
 (2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
 
--- Turma C (5 alunos)
 (3, 11), (3, 12), (3, 13), (3, 14), (3, 15),
 
--- Turma D (5 alunos)
 (4, 16), (4, 17), (4, 18), (4, 19), (4, 20);
 
