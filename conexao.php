@@ -10,8 +10,8 @@ $database = getenv('DB_NAME') ?: 'sistema_esc';
 
 echo "Iniciando configuração do banco de dados...\n";
 
-// Conectar ao servidor MySQL sem especificar banco de dados
-$connection = new mysqli($hostname, $username, $password, $database, $port);
+// Conectar ao servidor MySQL
+$conn = new mysqli($hostname, $username, $password, $database, $port);
 
 // Verificar conexão
 if ($conn->connect_error) {
@@ -112,4 +112,4 @@ if (!empty($missing_tables)) {
 
 echo "Configuração do banco de dados concluída.\n";
 $conn->close();
-?> 
+?>

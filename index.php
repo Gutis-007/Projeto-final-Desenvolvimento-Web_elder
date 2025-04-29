@@ -2,11 +2,11 @@
 include_once("conexao.php");
 
 $sql = "SELECT nome, descricao, imagem FROM disciplinas";
-$result = mysqli_query($connection, $sql);
+$result = $conn->query($sql);
 // Separando para poder usar duas vezes o mesmo resultado:
 $disciplinas = [];
-if (mysqli_num_rows($result) > 0) {
-    while($row = mysqli_fetch_assoc($result)) {
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
         $disciplinas[] = $row;
     }
 }
@@ -114,7 +114,7 @@ if (mysqli_num_rows($result) > 0) {
 
 <?php
 // Fechar conexão
-mysqli_close($connection);
+$conn->close();
 ?>
 
     <footer>
