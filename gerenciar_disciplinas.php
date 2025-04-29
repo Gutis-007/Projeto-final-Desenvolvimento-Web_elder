@@ -94,7 +94,7 @@ $resultado = mysqli_query($conn, $sql);
 <head>
     <meta charset="UTF-8">
     <title>Gerenciar Disciplinas</title>
-    <link rel="stylesheet" href="Style/gerTurma.css">
+    <link rel="stylesheet" href="style/gerTurma.css">
 
     <style>
         .cards {
