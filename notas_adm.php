@@ -1,3 +1,14 @@
+<?php
+include("conexao.php");
+session_start();
+
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.html");
+    exit();
+} else {
+    $adminId = $_SESSION['admin_id'];
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,17 +22,6 @@
     <br> <br> 
     <div class="containerTable">
     <?php
-    include("conexao.php");
-    session_start();
-    
-    if (!isset($_SESSION['admin_id'])) {
-        header("Location: login.html");
-        exit();
-    } else {
-        $adminId = $_SESSION['admin_id'];
-    }
-    // Verifica se o usuário é um admin
-
     $sql = "SELECT 
     alunos.matricula,
     usuarios.nome AS aluno,
