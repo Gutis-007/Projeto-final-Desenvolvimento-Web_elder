@@ -7,21 +7,21 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-function getTurmas($connection) {
+function getTurmas($conn) {
     $sql = "SELECT id, nome FROM turmas ORDER BY nome";
-    return mysqli_query($connection, $sql);
+    return mysqli_query($conn, $sql);
 }
 
-function getProfessores($connection) {
+function getProfessores($conn) {
     $sql = "SELECT professores.id, usuarios.nome FROM professores 
             INNER JOIN usuarios ON professores.fk_user = usuarios.id 
             ORDER BY usuarios.nome";
-    return mysqli_query($connection, $sql);
+    return mysqli_query($conn, $sql);
 }
 
-function getDisciplinas($connection) {
+function getDisciplinas($conn) {
     $sql = "SELECT id, nome FROM disciplinas ORDER BY nome";
-    return mysqli_query($connection, $sql);
+    return mysqli_query($conn, $sql);
 }
 
 $filtroTurma = isset($_GET['turma']) ? $_GET['turma'] : '';
@@ -74,7 +74,7 @@ switch ($filtroOrdem) {
         $sql .= " ORDER BY turma, aluno, disciplina";
 }
 
-$consulta = mysqli_query($connection, $sql);
+$consulta = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +101,7 @@ $consulta = mysqli_query($connection, $sql);
         name="turma" id="turma">
             <option value="">Todas</option>
             <?php
-            $turmas = getTurmas($connection);
+            $turmas = getTurmas($conn);
             while ($t = mysqli_fetch_assoc($turmas)) {
                 $selected = ($filtroTurma == $t['id']) ? 'selected' : '';
                 echo "<option value='{$t['id']}' $selected>{$t['nome']}</option>";
@@ -117,7 +117,7 @@ $consulta = mysqli_query($connection, $sql);
         name="professor" id="professor">
             <option value="">Todos</option>
             <?php
-            $profs = getProfessores($connection);
+            $profs = getProfessores($conn);
             while ($p = mysqli_fetch_assoc($profs)) {
                 $selected = ($filtroProfessor == $p['id']) ? 'selected' : '';
                 echo "<option value='{$p['id']}' $selected>{$p['nome']}</option>";
@@ -133,7 +133,7 @@ $consulta = mysqli_query($connection, $sql);
         name="disciplina" id="disciplina">
             <option value="">Todas</option>
             <?php
-            $disciplinas = getDisciplinas($connection);
+            $disciplinas = getDisciplinas($conn);
             while ($d = mysqli_fetch_assoc($disciplinas)) {
                 $selected = ($filtroDisciplina == $d['id']) ? 'selected' : '';
                 echo "<option value='{$d['id']}' $selected>{$d['nome']}</option>";
@@ -199,7 +199,7 @@ $consulta = mysqli_query($connection, $sql);
         echo "<p>Nenhum resultado encontrado.</p>";
     }
 
-    mysqli_close($connection);
+    mysqli_close($conn);
     ?>
            <div style="text-align: center;">
            <a style="

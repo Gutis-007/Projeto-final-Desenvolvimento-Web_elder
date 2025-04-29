@@ -26,32 +26,32 @@ if (isset($_POST['submit'])) {
     // Inserção do aluno na tabela usuarios
     $sql_users = "INSERT INTO usuarios (nome, idade, email, cpf, senha, tipo) 
                   VALUES ('$nome', '$idade', '$email', '$cpf', '$senha', 'Aluno')";
-    $result_users = mysqli_query($connection, $sql_users);
+    $result_users = mysqli_query($conn, $sql_users);
 
     if (!$result_users) {
-        die("Erro ao cadastrar o usuário: " . mysqli_error($connection));
+        die("Erro ao cadastrar o usuário: " . mysqli_error($conn));
     }
 
-    $user_id = mysqli_insert_id($connection);
+    $user_id = mysqli_insert_id($conn);
 
     // Inserção do aluno na tabela alunos
     $sql_alunos = "INSERT INTO alunos (matricula, fk_user) 
                    VALUES ('$matricula', $user_id)";
-    $result_alunos = mysqli_query($connection, $sql_alunos);
+    $result_alunos = mysqli_query($conn, $sql_alunos);
 
     if (!$result_alunos) {
-        die("Erro ao cadastrar aluno: " . mysqli_error($connection));
+        die("Erro ao cadastrar aluno: " . mysqli_error($conn));
     }
 
-    $aluno_id = mysqli_insert_id($connection);
+    $aluno_id = mysqli_insert_id($conn);
 
     // Vincular aluno à turma
     $sql_turma_alunos = "INSERT INTO turma_alunos (fk_aluno, fk_turma) 
                          VALUES ($aluno_id, $turma)";
-    $result_turma_alunos = mysqli_query($connection, $sql_turma_alunos);
+    $result_turma_alunos = mysqli_query($conn, $sql_turma_alunos);
 
     if (!$result_turma_alunos) {
-        die("Erro ao vincular aluno à turma: " . mysqli_error($connection));
+        die("Erro ao vincular aluno à turma: " . mysqli_error($conn));
     }
 
     // Inserir aluno com nota 0 para todas as disciplinas
@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
                         INNER JOIN prof_disc_turma pdt ON d.id = pdt.fk_disc
                         INNER JOIN professores p ON pdt.fk_prof = p.id";
 
-    $result_disciplinas = mysqli_query($connection, $sql_disciplinas);
+    $result_disciplinas = mysqli_query($conn, $sql_disciplinas);
 
     if ($result_disciplinas && mysqli_num_rows($result_disciplinas) > 0) {
         $disciplinas = mysqli_fetch_all($result_disciplinas, MYSQLI_ASSOC);
@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
 
             $sql_notas = "INSERT INTO notas (nota, dataL, fk_aluno, fk_prof, fk_disc) 
                           VALUES (0, CURDATE(), $aluno_id, $professor_id, $disciplina_id)";
-            mysqli_query($connection, $sql_notas);
+            mysqli_query($conn, $sql_notas);
         }
     } else {
         die("Nenhuma disciplina encontrada para associar notas.");
@@ -125,7 +125,7 @@ if (isset($_POST['submit'])) {
         <?php
         // Consulta para obter as turmas
         $sql_turmas = "SELECT id, nome FROM turmas";
-        $result_turmas = mysqli_query($connection, $sql_turmas);
+        $result_turmas = mysqli_query($conn, $sql_turmas);
 
         if ($result_turmas && mysqli_num_rows($result_turmas) > 0) {
             while ($row = mysqli_fetch_assoc($result_turmas)) {

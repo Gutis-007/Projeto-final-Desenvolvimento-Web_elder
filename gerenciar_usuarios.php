@@ -15,13 +15,13 @@ if (isset($_POST['deletar'])) {
 
     if ($usuario_id != $admin_id) {
         $sql_delete = "DELETE FROM usuarios WHERE id = $usuario_id";
-        mysqli_query($connection, $sql_delete);
+        mysqli_query($conn, $sql_delete);
         header("Location: gerenciar_usuarios.php");
     }
 }
 
 $sql = "SELECT id, nome, email, idade, cpf, tipo FROM usuarios WHERE id != $admin_id ORDER BY nome";
-$resultado = mysqli_query($connection, $sql);
+$resultado = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -83,4 +83,4 @@ $resultado = mysqli_query($connection, $sql);
 </body>
 </html>
 
-<?php mysqli_close($connection); ?>
+<?php mysqli_close($conn); ?>

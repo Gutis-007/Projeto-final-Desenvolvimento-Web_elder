@@ -21,24 +21,24 @@ if (isset($_POST['submit'])) {
     // Inserir usuário
     $sql_users = "INSERT INTO usuarios (nome, idade, email, cpf, senha, tipo) 
                   VALUES ('$nome', '$idade', '$email', '$cpf', '$senha', 'Administrador')";
-    $result_users = mysqli_query($connection, $sql_users);
+    $result_users = mysqli_query($conn, $sql_users);
 
     if (!$result_users) {
-        die("Erro ao cadastrar usuário: " . mysqli_error($connection));
+        die("Erro ao cadastrar usuário: " . mysqli_error($conn));
     }
 
-    $user_id = mysqli_insert_id($connection);
+    $user_id = mysqli_insert_id($conn);
 
     // Inserir Admnistrador
     $sql_Admnistradores = "INSERT INTO Administradores (fk_user) 
                         VALUES ($user_id)";
-    $result_Admnistradores = mysqli_query($connection, $sql_Admnistradores);
+    $result_Admnistradores = mysqli_query($conn, $sql_Admnistradores);
 
     if (!$result_Admnistradores) {
-        die("Erro ao cadastrar Administrador: " . mysqli_error($connection));
+        die("Erro ao cadastrar Administrador: " . mysqli_error($conn));
     }
 
-    $Admnistrador_id = mysqli_insert_id($connection);
+    $Admnistrador_id = mysqli_insert_id($conn);
 
 
 

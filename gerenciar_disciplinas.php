@@ -36,7 +36,7 @@ function processarUploadImagem($inputName) {
 if (isset($_POST['deletar'])) {
     $disciplina_id = $_POST['disciplina_id'];
     $sql_delete = "DELETE FROM disciplinas WHERE id = $disciplina_id";
-    mysqli_query($connection, $sql_delete);
+    mysqli_query($conn, $sql_delete);
     header("Location: gerenciar_disciplinas.php");
     exit;
 }
@@ -47,7 +47,7 @@ if (isset($_POST['editar'])) {
 
     // Busca os dados atuais
     $sql_buscar = "SELECT * FROM disciplinas WHERE id = $disciplina_id";
-    $resultado_buscar = mysqli_query($connection, $sql_buscar);
+    $resultado_buscar = mysqli_query($conn, $sql_buscar);
     $disciplina_atual = mysqli_fetch_assoc($resultado_buscar);
 
     // Pega novos valores se enviados, senão usa o antigo
@@ -63,7 +63,7 @@ if (isset($_POST['editar'])) {
     }
 
     $sql_update .= " WHERE id = $disciplina_id";
-    mysqli_query($connection, $sql_update);
+    mysqli_query($conn, $sql_update);
     header("Location: gerenciar_disciplinas.php");
     exit;
 }
@@ -77,7 +77,7 @@ if (isset($_POST['adicionar'])) {
     $imagem = processarUploadImagem('imagem');
     if ($imagem) {
         $sql_insert = "INSERT INTO disciplinas (nome, descricao, imagem) VALUES ('$nome_disciplina', '$descricao', '$imagem')";
-        mysqli_query($connection, $sql_insert);
+        mysqli_query($conn, $sql_insert);
         header("Location: gerenciar_disciplinas.php");
         exit;
     }
@@ -85,7 +85,7 @@ if (isset($_POST['adicionar'])) {
 
 // Puxa todas as disciplinas
 $sql = "SELECT * FROM disciplinas ORDER BY nome";
-$resultado = mysqli_query($connection, $sql);
+$resultado = mysqli_query($conn, $sql);
 ?>
 
 
@@ -202,4 +202,4 @@ $resultado = mysqli_query($connection, $sql);
 </body>
 </html>
 
-<?php mysqli_close($connection); ?>
+<?php mysqli_close($conn); ?>

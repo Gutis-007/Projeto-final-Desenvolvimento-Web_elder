@@ -1,7 +1,7 @@
 <?php 
 include_once("conexao.php");
 $sql = "SELECT nome, descricao, imagem FROM disciplinas";
-$result = mysqli_query($connection, $sql);
+$result = mysqli_query($conn, $sql);
 
 
 
@@ -98,5 +98,5 @@ $result = mysqli_query($connection, $sql);
 
 <?php
 // Fechar conexão
-mysqli_close($connection);
+mysqli_close($conn);
 ?>

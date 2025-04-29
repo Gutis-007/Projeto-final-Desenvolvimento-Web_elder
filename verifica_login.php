@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Consultando o banco de dados
     $sql = "SELECT * FROM usuarios WHERE email = '$email' AND senha = '$senha'";
-    $result = mysqli_query($connection, $sql);
+    $result = mysqli_query($conn, $sql);
     
     if (mysqli_num_rows($result) == 1) { // Returns the number of rows in the result set.
         $user = mysqli_fetch_assoc($result);

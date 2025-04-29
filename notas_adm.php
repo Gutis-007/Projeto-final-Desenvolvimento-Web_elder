@@ -41,7 +41,7 @@ ORDER BY turma, aluno, disciplina;
 
 
 
-    $consulta = mysqli_query($connection, $sql); 
+    $consulta = mysqli_query($conn, $sql); 
 
     if ($consulta) {    
         if (mysqli_num_rows($consulta) > 0) {
@@ -85,10 +85,10 @@ ORDER BY turma, aluno, disciplina;
             echo "Nenhum resultado encontrado.";
         }
     } else {
-        echo "Erro na consulta: " . htmlspecialchars(mysqli_errno($connection)) . " - " . htmlspecialchars(mysqli_error($connection));
+        echo "Erro na consulta: " . htmlspecialchars(mysqli_errno($conn)) . " - " . htmlspecialchars(mysqli_error($conn));
     }
 
-    mysqli_close($connection);
+    mysqli_close($conn);
     ?>
     </div>
     <br><br>

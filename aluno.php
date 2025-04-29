@@ -8,7 +8,7 @@ if (!isset($_SESSION['aluno_id'])) {
 else{
 $alunoId = ($_SESSION['aluno_id']); // segurança contra SQL injection
 $sql = "SELECT nome, tipo, cpf FROM usuarios WHERE id = $alunoId";
-$consulta = mysqli_query($connection, $sql);
+$consulta = mysqli_query($conn, $sql);
 if ($consulta) {
     $row = mysqli_fetch_assoc($consulta);
     $tipo = $row['tipo'];
@@ -19,7 +19,7 @@ if ($consulta) {
         exit;
     }
     $sql_aluno = "SELECT id FROM alunos WHERE fk_user = $alunoId";
-    $result_alun= mysqli_query($connection, $sql_aluno);
+    $result_alun= mysqli_query($conn, $sql_aluno);
 
     $row_alun = mysqli_fetch_assoc($result_alun);
     if ($row_alun) {
@@ -39,12 +39,12 @@ if ($consulta) {
     LIMIT 1
 ";
 
-$dadosAluno = mysqli_fetch_assoc(mysqli_query($connection, $sqlDadosAluno));
+$dadosAluno = mysqli_fetch_assoc(mysqli_query($conn, $sqlDadosAluno));
 $matricula = $dadosAluno['matricula'];
 $turma = $dadosAluno['turma'];
 
 } else {
-    die("Erro ao verificar tipo de usuário: " . mysqli_error($connection));
+    die("Erro ao verificar tipo de usuário: " . mysqli_error($conn));
 }
 }
 ?>
@@ -90,7 +90,7 @@ WHERE
         WHERE u.id = $alunoId
     )"; 
 
-        $consulta = mysqli_query($connection, $sql_notas); 
+        $consulta = mysqli_query($conn, $sql_notas); 
 
         if ($consulta && mysqli_num_rows($consulta) > 0) {
             echo "<table class='tabela-boletim' border='1'>";
@@ -118,7 +118,7 @@ WHERE
             echo "<p>Nenhuma nota encontrada para este aluno.</p>";
         }
 
-        mysqli_close($connection);
+        mysqli_close($conn);
         ?>
     </div>
 

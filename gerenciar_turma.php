@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin_id'])) {
 if (isset($_POST['deletar'])) {
     $turma_id = $_POST['turma_id'];
     $sql_delete = "DELETE FROM turmas WHERE id = $turma_id";
-    mysqli_query($connection, $sql_delete);
+    mysqli_query($conn, $sql_delete);
     header("Location: gerenciar_turma.php");
     exit;
 }
@@ -21,7 +21,7 @@ if (isset($_POST['editar'])) {
     $turma_id = $_POST['turma_id'];
     $novo_nome = $_POST['novo_nome'];
     $sql_update = "UPDATE turmas SET nome = '$novo_nome' WHERE id = $turma_id";
-    mysqli_query($connection, $sql_update);
+    mysqli_query($conn, $sql_update);
     header("Location: gerenciar_turma.php");
     exit;
 }
@@ -30,14 +30,14 @@ if (isset($_POST['editar'])) {
 if (isset($_POST['adicionar'])) {
     $nome_turma = $_POST['nome_turma'];
     $sql_insert = "INSERT INTO turmas (nome) VALUES ('$nome_turma')";
-    mysqli_query($connection, $sql_insert);
+    mysqli_query($conn, $sql_insert);
     header("Location: gerenciar_turma.php");
     exit;
 }
 
 // Consulta todas as turmas
 $sql = "SELECT * FROM turmas ORDER BY nome";
-$resultado = mysqli_query($connection, $sql);
+$resultado = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -98,4 +98,4 @@ $resultado = mysqli_query($connection, $sql);
 </body>
 </html>
 
-<?php mysqli_close($connection); ?>
+<?php mysqli_close($conn); ?>

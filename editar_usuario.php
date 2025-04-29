@@ -19,11 +19,11 @@ if (isset($_GET['id'])) {
             LEFT JOIN professores p ON u.id = p.fk_user
             LEFT JOIN administradores ad ON u.id = ad.fk_user
             WHERE u.id = $usuario_id";
-    $resultado = mysqli_query($connection, $sql);
+    $resultado = mysqli_query($conn, $sql);
     $usuario = mysqli_fetch_assoc($resultado);
 
     $sql_aluno = "SELECT id FROM alunos WHERE fk_user = $usuario_id";
-    $res_aluno = mysqli_query($connection, $sql_aluno);
+    $res_aluno = mysqli_query($conn, $sql_aluno);
     $usuario_aluno = mysqli_fetch_assoc($res_aluno);
 
     if (!$usuario) {
@@ -33,12 +33,12 @@ if (isset($_GET['id'])) {
     }
 }
 
-        $todas_turmas = mysqli_query($connection, "SELECT * FROM turmas");
+        $todas_turmas = mysqli_query($conn, "SELECT * FROM turmas");
         $turmas_array = mysqli_fetch_all($todas_turmas, MYSQLI_ASSOC);
 
         $turma_atual_id = null;
         if ($usuario['tipo'] == 'Aluno' && $usuario_aluno) {
-            $res_turma = mysqli_query($connection, "SELECT fk_turma FROM turma_alunos WHERE fk_aluno = {$usuario_aluno['id']}");
+            $res_turma = mysqli_query($conn, "SELECT fk_turma FROM turma_alunos WHERE fk_aluno = {$usuario_aluno['id']}");
             $row_turma = mysqli_fetch_assoc($res_turma);
             $turma_atual_id = $row_turma['fk_turma'] ?? null;
         }
@@ -62,7 +62,7 @@ if (isset($_POST['atualizar'])) {
 
     // Atualiza os dados na tabela de usuarios
     $sql_update = "UPDATE usuarios SET nome = '$nome', email = '$email', senha = '$senha', idade = '$idade', cpf = '$cpf', tipo = '$tipo' WHERE id = $usuario_id";
-    mysqli_query($connection, $sql_update);
+    mysqli_query($conn, $sql_update);
 
     // Verifica se o usuário é aluno e atualiza a matrícula
     if ($tipo == 'Aluno') {
@@ -73,27 +73,27 @@ if (isset($_POST['atualizar'])) {
 
         if ($turma_id) {
             // Verifica se já existe uma entrada na tabela turma_alunos
-            $verifica_turma = mysqli_query($connection, "SELECT * FROM turma_alunos WHERE fk_aluno = {$usuario_aluno['id']}");
+            $verifica_turma = mysqli_query($conn, "SELECT * FROM turma_alunos WHERE fk_aluno = {$usuario_aluno['id']}");
 
             if (mysqli_num_rows($verifica_turma) > 0) {
                 // Atualiza a turma
                 $sql_update_turma = "UPDATE turma_alunos SET fk_turma = $turma_id WHERE fk_aluno = {$usuario_aluno['id']}";
-                mysqli_query($connection, $sql_update_turma);
+                mysqli_query($conn, $sql_update_turma);
             } else {
                 // Insere novo vínculo
                 $sql_insert_turma = "INSERT INTO turma_alunos (fk_aluno, fk_turma) VALUES ({$usuario_aluno['id']}, $turma_id)";
-                mysqli_query($connection, $sql_insert_turma);
+                mysqli_query($conn, $sql_insert_turma);
             }
         }
         
         // Atualiza a tabela de alunos
         if (isset($usuario['matricula'])) {
             $sql_matricula = "UPDATE alunos SET matricula = '$matricula' WHERE fk_user = $usuario_id";
-            mysqli_query($connection, $sql_matricula);
+            mysqli_query($conn, $sql_matricula);
         } else {
             // Se o usuário ainda não é aluno, insere a matrícula
             $sql_matricula = "INSERT INTO alunos (fk_user, matricula) VALUES ($usuario_id, '$matricula')";
-            mysqli_query($connection, $sql_matricula);
+            mysqli_query($conn, $sql_matricula);
         }
     }
     else if($tipo == 'Professor') {
@@ -102,12 +102,12 @@ if (isset($_POST['atualizar'])) {
         if (empty($prof_id)) {
             // Inserir na tabela professores
             $sql_insert_prof = "INSERT INTO professores (fk_user) VALUES ($usuario_id)";
-            mysqli_query($connection, $sql_insert_prof);
-            $prof_id = mysqli_insert_id($connection); // pega o ID recém-criado
+            mysqli_query($conn, $sql_insert_prof);
+            $prof_id = mysqli_insert_id($conn); // pega o ID recém-criado
         } else {
             // Remove vínculos antigos se já existe
             $sql_delete = "DELETE FROM prof_disc_turma WHERE fk_prof = $prof_id";
-            mysqli_query($connection, $sql_delete);
+            mysqli_query($conn, $sql_delete);
         }
     
         // Adiciona novos vínculos (caso existam)
@@ -117,7 +117,7 @@ if (isset($_POST['atualizar'])) {
     
                 if (!empty($disciplina) && !empty($turma)) {
                     $sql_insert = "INSERT INTO prof_disc_turma (fk_prof, fk_disc, fk_turma) VALUES ($prof_id, $disciplina, $turma)";
-                    mysqli_query($connection, $sql_insert);
+                    mysqli_query($conn, $sql_insert);
                 }
             }
         }
@@ -184,11 +184,11 @@ if (isset($_POST['atualizar'])) {
 
     <?php
     // Buscar todas as disciplinas
-    $disciplinas = mysqli_query($connection, "SELECT * FROM disciplinas");
+    $disciplinas = mysqli_query($conn, "SELECT * FROM disciplinas");
     $disciplinas_array = mysqli_fetch_all($disciplinas, MYSQLI_ASSOC);
 
     // Buscar todas as turmas
-    $turmas = mysqli_query($connection, "SELECT * FROM turmas");
+    $turmas = mysqli_query($conn, "SELECT * FROM turmas");
     $turmas_array = mysqli_fetch_all($turmas, MYSQLI_ASSOC);
 
     // Verificar se esse professor já tem disciplinas e turmas associadas
@@ -196,7 +196,7 @@ if (isset($_POST['atualizar'])) {
     if (!empty($usuario['prof_id'])) { // se nao tiver vazio entao executa a consulta
         // Obter o ID do professor
         $prof_id = $usuario['prof_id'];
-        $res = mysqli_query($connection, "SELECT fk_disc, fk_turma FROM prof_disc_turma WHERE fk_prof = $prof_id");
+        $res = mysqli_query($conn, "SELECT fk_disc, fk_turma FROM prof_disc_turma WHERE fk_prof = $prof_id");
     
         while ($row = mysqli_fetch_assoc($res)) {
             $atuais[] = "{$row['fk_disc']}-{$row['fk_turma']}";
@@ -228,4 +228,4 @@ if (isset($_POST['atualizar'])) {
 </body>
 </html>
 
-<?php mysqli_close($connection); ?>
+<?php mysqli_close($conn); ?>

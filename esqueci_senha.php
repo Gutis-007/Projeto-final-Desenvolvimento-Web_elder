@@ -1,5 +1,5 @@
 <?php
-require 'conexao.php'; // $connection deve estar definido com mysqli_connect
+require 'conexao.php'; // $conn deve estar definido com mysqli_connect
 
 // Verifica conexão com o banco
 if (mysqli_connect_errno()) {
@@ -59,15 +59,15 @@ function validaCPF($cpf) {
 }
 
 // Inicia transação
-mysqli_autocommit($connection, false);
+mysqli_autocommit($conn, false);
 $error = false;
 
 // Consulta com prepared statement
 $query = "SELECT id FROM usuarios WHERE email = ? AND cpf = ? FOR UPDATE";
-$stmt = mysqli_prepare($connection, $query);
+$stmt = mysqli_prepare($conn, $query);
 
 if (!$stmt) {
-    $error = "Erro na preparação da consulta: " . mysqli_error($connection);
+    $error = "Erro na preparação da consulta: " . mysqli_error($conn);
 } else {
     mysqli_stmt_bind_param($stmt, "ss", $email, $cpf);
 
@@ -84,10 +84,10 @@ if (!$stmt) {
             // Atualiza a senha
             $novaSenha = $senha1;
             $update_query = "UPDATE usuarios SET senha = ? WHERE id = ?";
-            $update_stmt = mysqli_prepare($connection, $update_query);
+            $update_stmt = mysqli_prepare($conn, $update_query);
 
             if (!$update_stmt) {
-                $error = "Erro na preparação do update: " . mysqli_error($connection);
+                $error = "Erro na preparação do update: " . mysqli_error($conn);
             } else {
                 mysqli_stmt_bind_param($update_stmt, "si", $novaSenha, $usuario['id']);
 
@@ -107,7 +107,7 @@ if (!$stmt) {
 
 // Commit ou rollback
 if ($error) {
-    mysqli_rollback($connection);
+    mysqli_rollback($conn);
     error_log("Erro na redefinição de senha: " . $error);
 
     echo "<script>
@@ -115,7 +115,7 @@ if ($error) {
         history.back();
     </script>";
 } else {
-    mysqli_commit($connection);
+    mysqli_commit($conn);
     echo "<script>
         alert('Senha alterada com sucesso!');
         window.location.href = 'login.html';
@@ -123,6 +123,6 @@ if ($error) {
 }
 
 // Finaliza
-mysqli_autocommit($connection, true);
-mysqli_close($connection);
+mysqli_autocommit($conn, true);
+mysqli_close($conn);
 ?>

@@ -23,24 +23,24 @@ if (isset($_POST['submit'])) {
     // Inserir usuário
     $sql_users = "INSERT INTO usuarios (nome, idade, email, cpf, senha, tipo) 
                   VALUES ('$nome', '$idade', '$email', '$cpf', '$senha', 'Professor')";
-    $result_users = mysqli_query($connection, $sql_users);
+    $result_users = mysqli_query($conn, $sql_users);
 
     if (!$result_users) {
-        die("Erro ao cadastrar usuário: " . mysqli_error($connection));
+        die("Erro ao cadastrar usuário: " . mysqli_error($conn));
     }
 
-    $user_id = mysqli_insert_id($connection);
+    $user_id = mysqli_insert_id($conn);
 
     // Inserir professor
     $sql_professores = "INSERT INTO professores (fk_user) 
                         VALUES ($user_id)";
-    $result_professores = mysqli_query($connection, $sql_professores);
+    $result_professores = mysqli_query($conn, $sql_professores);
 
     if (!$result_professores) {
-        die("Erro ao cadastrar professor: " . mysqli_error($connection));
+        die("Erro ao cadastrar professor: " . mysqli_error($conn));
     }
 
-    $professor_id = mysqli_insert_id($connection);
+    $professor_id = mysqli_insert_id($conn);
 
     // Associar disciplinas e turmas
     foreach ($disciplinasTurmasSelecionadas as $item) {
@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
         
         $sql = "INSERT INTO prof_disc_turma (fk_prof, fk_disc, fk_turma) 
                 VALUES ($professor_id, $disciplina_id, $turma_id)";
-        mysqli_query($connection, $sql);
+        mysqli_query($conn, $sql);
     }
 
     header("Location: tipo_prof.php?success=1");
@@ -56,11 +56,11 @@ if (isset($_POST['submit'])) {
 }
 
 // Buscar todas disciplinas
-$disciplinas_query = mysqli_query($connection, "SELECT id, nome FROM disciplinas");
+$disciplinas_query = mysqli_query($conn, "SELECT id, nome FROM disciplinas");
 $disciplinas_array = mysqli_fetch_all($disciplinas_query, MYSQLI_ASSOC);
 
 // Buscar todas turmas
-$turmas_query = mysqli_query($connection, "SELECT id, nome FROM turmas");
+$turmas_query = mysqli_query($conn, "SELECT id, nome FROM turmas");
 $turmas_array = mysqli_fetch_all($turmas_query, MYSQLI_ASSOC);
 
 ?>
