@@ -1,0 +1,82 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    font-family: "poppins", sans-serif;
+}
+.tabela-boletim {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabela-boletim th, .tabela-boletim td {
+    border: 1px solid #e0e0e0;
+    padding: 12px 15px;
+}
+
+.tabela-boletim th {
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tabela-boletim tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.tabela-boletim tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.tabela-boletim tr:hover {
+    background-color: #e9ecef;
+    transition: background-color 0.3s ease;
+}
+
+.tabela-boletim td {
+    text-align: center;
+    color: #333333;
+}
+
+.tabela-boletim caption {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333333;
+    text-align: center;
+}
+
+button {
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    background-color: #1e90ff;
+}
+
+H1{
+    text-align: center;
+}
+.deslogar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+

@@ -1,0 +1,15 @@
+{
+  "name": "sistema-escolar",
+  "version": "1.0.0",
+  "description": "Sistema Escolar para Railway",
+  "main": "index.php",
+  "scripts": {
+    "start": "php -S 0.0.0.0:$PORT -t ."
+  },
+  "engines": {
+    "php": "8.2"
+  },
+  "dependencies": {
+    "swiper": "^11.2.6"
+  }
+}

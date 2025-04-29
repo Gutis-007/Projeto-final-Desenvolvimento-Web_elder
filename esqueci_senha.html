@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style_2.css">
+    <title>Redefinir Senha</title>
+</head>
+<body>
+    <div class="container-login">
+        <form class="wrapper" action="esqueci_senha.php" method="post">
+            
+            <h1>Redefinir Senha</h1> 
+            <div class="input-box">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="cpf" placeholder="CPF (Ex: 000.000.000-00)" required>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="senha1" id="nova-senha" placeholder="Nova Senha" required>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="senha2" id="confirma-senha" 
+                       placeholder="Confirmar Nova Senha" required>
+            </div>
+
+            <button type="submit" class="btn-enter">Redefinir Senha</button>
+
+            <div class="cont-btn">
+                <button class="btn-back" onclick="window.location.href='login.html'">
+                    Voltar para o login
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

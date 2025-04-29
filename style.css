@@ -1,0 +1,47 @@
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(45deg, cyan, yellow);
+}
+.box-shadow {
+    -webkit-box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.52);
+    -moz-box-shadow:    0px 10px 20px 0px rgba(50, 50, 50, 0.52);
+    box-shadow:         0px 10px 20px 0px rgba(50, 50, 50, 0.52)
+}
+a{ color : dodgerblue }
+
+div{
+background-color: white;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+padding: 80px;
+border-radius: 15px;
+color: #050505;
+}
+input{
+padding: 15px;
+border: none;
+outline: none;
+font-size: 15px;
+}
+button{
+background-color: dodgerblue;
+border: none;
+padding: 15px;
+width: 100%;
+border-radius: 10px;
+color: white;
+font-size: 15px;
+
+}
+button:hover{
+background-color: deepskyblue;
+cursor: pointer;
+}
+h1{
+color: rgb(0, 0, 0);
+font-family: "Helvetica Neue", Helvetica,
+}
+
