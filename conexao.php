@@ -1,5 +1,4 @@
 <?php
-// Script para configurar o banco de dados automaticamente
 
 // Obter variáveis de ambiente
 $hostname = getenv('DB_HOST') ?: 'localhost';
@@ -7,8 +6,6 @@ $username = getenv('DB_USER') ?: 'root';
 $password = getenv('DB_PASS') ?: '';
 $port = getenv('DB_PORT') ?: '3306';
 $database = getenv('DB_NAME') ?: 'sistema_esc';
-
-echo "Iniciando configuração do banco de dados...\n";
 
 // Conectar ao servidor MySQL
 $conn = new mysqli($hostname, $username, $password, $database, $port);
@@ -18,14 +15,10 @@ if ($conn->connect_error) {
     die("Falha na conexão: " . $conn->connect_error);
 }
 
-echo "Conexão ao servidor MySQL estabelecida.\n";
-
 // Verificar se o banco de dados existe
 $result = $conn->query("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$database'");
 
 if ($result->num_rows == 0) {
-    echo "Criando banco de dados '$database'...\n";
-    
     // Criar o banco de dados
     if ($conn->query("CREATE DATABASE IF NOT EXISTS $database") === TRUE) {
     } else {
@@ -36,7 +29,6 @@ if ($result->num_rows == 0) {
     $conn->select_db($database);
     
     // Carregar o arquivo SQL
-    echo "Importando estrutura e dados...\n";
     $sql_file = file_get_contents('sistema_esc.sql');
     
     // Dividir o conteúdo do arquivo em consultas individuais
@@ -68,9 +60,6 @@ foreach ($required_tables as $table) {
 }
 
 if (!empty($missing_tables)) {
-    echo "Algumas tabelas estão faltando: " . implode(', ', $missing_tables) . "\n";
-    echo "Importando estrutura e dados...\n";
-    
     // Carregar o arquivo SQL
     $sql_file = file_get_contents('sistema_esc.sql');
     
@@ -90,5 +79,4 @@ if (!empty($missing_tables)) {
     }
 }
 
-echo "Configuração do banco de dados concluída.\n";
 ?>
